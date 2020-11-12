@@ -1,5 +1,8 @@
 package io.beamtechnology.transport;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
+
 public class ExpressBeamTransport extends AbstractBeamTransport {
 
     static String BEAM_API_PATH="https://express.api.beamtechnology.com:8888";

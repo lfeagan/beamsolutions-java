@@ -35,7 +35,7 @@ public class Account {
     public String status = null; // length <= 36
 
     public CreateResponse create(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doPost(URI_FRAGMENT, this);
+        HttpResponse<String> response = transport.post(URI_FRAGMENT, this);
         CreateResponse createResponse = JsonUtils.fromJson(CreateResponse.class, response.body());
         return createResponse;
     }
@@ -44,14 +44,14 @@ public class Account {
         if (accountId == null) {
             throw new NullPointerException("accountId must not be null");
         }
-        HttpResponse<String> response = transport.doUpdate(URI_FRAGMENT, this, suppressHistory);
+        HttpResponse<String> response = transport.patch(URI_FRAGMENT, this, suppressHistory);
         Account account = JsonUtils.fromJson(Account.class, response.body());
         return account;
     }
 
     public static Account get(BeamTransport transport, String accountId) throws IOException, InterruptedException {
         final String uriFragment = URI_FRAGMENT + "/" + accountId;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         Account account = JsonUtils.fromJson(Account.class, response.body());
         return account;
     }

@@ -13,7 +13,7 @@ public class Settings {
     public String signatureKey = null;
 
     public static Settings getSettings(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doGet(URI_FRAGMENT);
+        HttpResponse<String> response = transport.get(URI_FRAGMENT);
         Settings settings = JsonUtils.fromJson(Settings.class, response.body());
         return settings;
     }

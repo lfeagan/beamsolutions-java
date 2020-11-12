@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import io.beamtechnology.util.JsonUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class AbstractBeamTransport implements BeamTransport  {
 
@@ -99,7 +101,8 @@ public abstract class AbstractBeamTransport implements BeamTransport  {
     }
 
     @Override
-    public HttpResponse<String> doPost(final String uriFragment, Object object) throws IOException, InterruptedException {
+    public HttpResponse<String> post(final String uriFragment, @NotNull Object object) throws IOException, InterruptedException {
+        Objects.requireNonNull(object);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(this.getBaseUri() + uriFragment))
@@ -111,7 +114,7 @@ public abstract class AbstractBeamTransport implements BeamTransport  {
     }
 
     @Override
-    public HttpResponse<String> doGet(String uriFragment) throws IOException, InterruptedException {
+    public HttpResponse<String> get(String uriFragment) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(this.getBaseUri() + uriFragment))
@@ -122,7 +125,8 @@ public abstract class AbstractBeamTransport implements BeamTransport  {
     }
 
     @Override
-    public HttpResponse<String> doUpdate(String uriFragment, Object object, boolean suppressHistory) throws IOException, InterruptedException {
+    public HttpResponse<String> patch(String uriFragment, @NotNull Object object, boolean suppressHistory) throws IOException, InterruptedException {
+        Objects.requireNonNull(object);
         HttpClient client = HttpClient.newHttpClient();
         String url = this.getBaseUri() + uriFragment;
         if (suppressHistory) {
@@ -133,6 +137,23 @@ public abstract class AbstractBeamTransport implements BeamTransport  {
                 .headers(this.makeHeaders())
                 .method("PATCH", HttpRequest.BodyPublishers.ofString(JsonUtils.toJson(object)))
                 .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
+    }
+
+    @Override
+    public HttpResponse<String> put(String uriFragment, Object object) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        String url = this.getBaseUri() + uriFragment;
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .headers(this.makeHeaders());
+        if (object == null) {
+            requestBuilder = requestBuilder.PUT(HttpRequest.BodyPublishers.noBody());
+        } else {
+            requestBuilder = requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(JsonUtils.toJson(object)));
+        }
+        HttpRequest request = requestBuilder.build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return response;
     }

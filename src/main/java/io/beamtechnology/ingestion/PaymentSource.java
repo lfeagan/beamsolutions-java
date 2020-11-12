@@ -35,14 +35,14 @@ public class PaymentSource {
     public GeoCode geoCode = null;
 
     public CreateResponse create(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doPost(URI_FRAGMENT, this);
+        HttpResponse<String> response = transport.post(URI_FRAGMENT, this);
         CreateResponse createResponse = JsonUtils.fromJson(CreateResponse.class, response.body());
         return createResponse;
     }
 
     public static PaymentSource get(BeamTransport transport, String paymentSourceId) throws IOException, InterruptedException {
         final String uriFragment = URI_FRAGMENT + "/" + paymentSourceId;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         PaymentSource paymentSource = JsonUtils.fromJson(PaymentSource.class, response.body());
         return paymentSource;
     }
@@ -51,7 +51,7 @@ public class PaymentSource {
         if (paymentSourceId == null) {
             throw new NullPointerException("paymentSourceId must not be null");
         }
-        HttpResponse<String> response = transport.doUpdate(URI_FRAGMENT, this, suppressHistory);
+        HttpResponse<String> response = transport.patch(URI_FRAGMENT, this, suppressHistory);
         PaymentSource paymentSource = JsonUtils.fromJson(PaymentSource.class, response.body());
         return paymentSource;
     }

@@ -6,7 +6,6 @@ import io.beamtechnology.util.JsonUtils;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.time.Instant;
 import java.util.Date;
 
 public class Party {
@@ -54,7 +53,7 @@ public class Party {
     }
 
     public CreateResponse create(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doPost(PARTY_URI_FRAGMENT, this);
+        HttpResponse<String> response = transport.post(PARTY_URI_FRAGMENT, this);
         CreateResponse createResponse = JsonUtils.fromJson(CreateResponse.class, response.body());
         return createResponse;
     }
@@ -64,7 +63,7 @@ public class Party {
             throw new NullPointerException("partyId must not be null");
         }
         final String uriFragment = PARTY_URI_FRAGMENT + "/" + partyId;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         Party party = JsonUtils.fromJson(Party.class, response.body());
         return party;
     }
@@ -74,7 +73,7 @@ public class Party {
             throw new NullPointerException("partyId must not be null");
         }
         String uriFragment = PARTY_URI_FRAGMENT + "/" + partyId;
-        HttpResponse<String> response = transport.doUpdate(uriFragment, this, suppressHistory);
+        HttpResponse<String> response = transport.patch(uriFragment, this, suppressHistory);
         Party party = JsonUtils.fromJson(Party.class, response.body());
         return party;
     }

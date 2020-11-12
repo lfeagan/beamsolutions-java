@@ -8,11 +8,11 @@ public interface BeamTransport {
 
     String getBaseUri();
 
-    HttpResponse<String> doPost(String uriFragment, Object object) throws IOException, InterruptedException;
+    HttpResponse<String> post(String uriFragment, Object object) throws IOException, InterruptedException;
 
-    HttpResponse<String> doGet(String uriFragment) throws IOException, InterruptedException;
+    HttpResponse<String> get(String uriFragment) throws IOException, InterruptedException;
 
-    HttpResponse<String> doUpdate(String uriFragment, Object object, boolean suppressHistory) throws IOException, InterruptedException;
+    HttpResponse<String> patch(String uriFragment, Object object, boolean suppressHistory) throws IOException, InterruptedException;
 
-    HttpResponse<String> doPut(String uriFragment, Object object) throws IOException, InterruptedException;
+    HttpResponse<String> put(String uriFragment, Object object) throws IOException, InterruptedException;
 }

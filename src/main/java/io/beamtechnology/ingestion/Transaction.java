@@ -39,14 +39,14 @@ public class Transaction {
     }
 
     public CreateResponse create(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doPost(URI_FRAGMENT, this);
+        HttpResponse<String> response = transport.post(URI_FRAGMENT, this);
         CreateResponse createResponse = JsonUtils.fromJson(CreateResponse.class, response.body());
         return createResponse;
     }
 
     public static Transaction get(BeamTransport transport, String transactionId) throws IOException, InterruptedException {
         final String uriFragment = URI_FRAGMENT + "/" + transactionId;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         Transaction transaction = JsonUtils.fromJson(Transaction.class, response.body());
         return transaction;
     }
@@ -54,7 +54,7 @@ public class Transaction {
     public void updateStatus(BeamTransport transport) throws IOException, InterruptedException {
         // put /model/v1/transactions/1111?status=pending
         final String uriFragment = URI_FRAGMENT + "/" + transactionId + "?status=" + status;
-        HttpResponse<String> response = transport.doPut(uriFragment, null);
+        HttpResponse<String> response = transport.put(uriFragment, null);
 
     }
 }

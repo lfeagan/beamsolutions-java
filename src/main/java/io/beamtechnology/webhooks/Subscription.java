@@ -21,21 +21,21 @@ public class Subscription {
     static String URI_FRAGMENT = "/subscriptions";
 
     public Subscription create(BeamTransport transport) throws IOException, InterruptedException {
-        HttpResponse<String> response = transport.doPost(URI_FRAGMENT, this);
+        HttpResponse<String> response = transport.post(URI_FRAGMENT, this);
         Subscription subscription = JsonUtils.fromJson(Subscription.class, response.body());
         return subscription;
     }
 
     public Subscription get(BeamTransport transport, String subscriptionId) throws IOException, InterruptedException {
         final String uriFragment = URI_FRAGMENT + "/" + subscriptionId;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         Subscription subscription = JsonUtils.fromJson(Subscription.class, response.body());
         return subscription;
     }
 
     public Subscription[] getAll(BeamTransport transport) throws IOException, InterruptedException {
         final String uriFragment = URI_FRAGMENT;
-        HttpResponse<String> response = transport.doGet(uriFragment);
+        HttpResponse<String> response = transport.get(uriFragment);
         String jsonArray = response.body();
         ObjectMapper om = new ObjectMapper();
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -48,7 +48,7 @@ public class Subscription {
             throw new NullPointerException("id must not be null");
         }
         String uriFragment = URI_FRAGMENT + "/" + id;
-        HttpResponse<String> response = transport.doUpdate(uriFragment, this, suppressHistory);
+        HttpResponse<String> response = transport.patch(uriFragment, this, suppressHistory);
         Subscription subscription = JsonUtils.fromJson(Subscription.class, response.body());
         return subscription;
     }
