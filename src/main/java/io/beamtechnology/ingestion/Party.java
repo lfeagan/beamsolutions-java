@@ -13,7 +13,7 @@ public class Party {
     public String partyId = null; // REQUIRED; length <= 128
     public Date partyCreated = null; // REQUIRED; ISO-8601 Format Date
     public String userName = null; // length <=255
-    public String partyModified = null; // ISO-8601 Format Date
+    public Date partyModified = null; // ISO-8601 Format Date
     public String group = null; // length <=128
     public String type = null; // length <=128
     public String code = null; // length <=128
@@ -39,7 +39,7 @@ public class Party {
     public String landline = null; // length <=20
     public String mobile = null; // length <=20
     public String fax = null; // length <=20
-    public String dob = null; // ISO-8601 Date Format
+    public Date dob = null; // ISO-8601 Date Format
     public String gender = null; // length <=1
     public String[] socialMedia = null; // array <=1024
     public String verified = null; // length <=128

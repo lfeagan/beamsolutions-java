@@ -7,15 +7,16 @@ import io.beamtechnology.util.JsonUtils;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.http.HttpResponse;
+import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
 
     public String accountId = null; // length <= 128
-    public String accountCreated = null; // ISO-8601 Date-Time Format
+    public Date accountCreated = null; // ISO-8601 Date-Time Format
     public String[] partyIds = null; // REQUIRED; length <= 128 each
     public String type = null; // length <= 128
-    public String accountModified = null; // ISO-8601 Date-Time Format
+    public Date accountModified = null; // ISO-8601 Date-Time Format
     public String code = null; // length <= 128
     public String category = null; // length <= 128
     public String primaryPartyId = null; // length <= 128

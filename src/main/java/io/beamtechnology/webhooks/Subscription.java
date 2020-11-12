@@ -7,12 +7,13 @@ import io.beamtechnology.util.JsonUtils;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.util.Date;
 
 public class Subscription {
 
     public String id = null; // UUID
-    public String created = null; // ISO-8601 Date-Time Format
-    public String modified = null; // ISO-8601 Date-Time Format
+    public Date created = null; // ISO-8601 Date-Time Format
+    public Date modified = null; // ISO-8601 Date-Time Format
     public String webhookUrl = null; // REQUIRED
     public String[] events = null; // REQUIRED; array of event types
     public String status = null; // "active" "inactive"

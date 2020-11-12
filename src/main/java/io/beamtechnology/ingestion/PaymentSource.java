@@ -1,14 +1,16 @@
 package io.beamtechnology.ingestion;
 
+import java.util.Date;
+
 public class PaymentSource {
 
     private static String POST_URI_FRAGMENT = "/model/v1/payment-sources";
 
     public String paymentSourceId = null; // length <= 128
-    public String paymentSourceCreated = null; // ISO-8601 Date-Time Format
+    public Date paymentSourceCreated = null; // ISO-8601 Date-Time Format
     public String partyId = null; // length <= 128
     public String method = null; // length <= 128
-    public String paymentSourceModified = null; // ISO-8601 Date-Time Format
+    public Date paymentSourceModified = null; // ISO-8601 Date-Time Format
     public String methodType = null; // length <= 128
     public String type = null; // length <= 128
     public String code = null; // length <= 128

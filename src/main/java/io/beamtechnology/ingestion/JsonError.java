@@ -1,10 +1,12 @@
 package io.beamtechnology.ingestion;
 
+import java.util.Date;
+
 public class JsonError {
 
     public int status;
     public int code;
-    public String time = null; // ISO-8601 Date-Time Format
+    public Date time = null; // ISO-8601 Date-Time Format
     public String message = null;
     public String moreInfo = null;
     public String traceId = null;
