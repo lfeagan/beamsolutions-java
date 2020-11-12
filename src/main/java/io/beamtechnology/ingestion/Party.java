@@ -78,13 +78,4 @@ public class Party {
         return party;
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
-        Party p = new Party();
-        p.partyId = "123";
-        p.partyCreated = new Date();
-        System.out.println(JsonUtils.toJson(p));
-
-        // 2019-09-04T04:16:28.138Z
-    }
-
 }

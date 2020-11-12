@@ -5,3 +5,13 @@ This **very** simple library deals with the basics of authenticating with Beam S
 1. Accounts -- Stores of money.
 1. Parties -- Owners of accounts.
 1. Sources -- Payment sources, such as ACH, card, cash, marketplace, and P2P.
+
+```java
+BeamTransport bt = new ExpressBeamTransport("aCustomer", "myClientKey");
+PaymentSource ps1 = new PaymentSource("aPaymentSourceId", "aPartyId");
+try {
+    ps1.create(bt);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+```

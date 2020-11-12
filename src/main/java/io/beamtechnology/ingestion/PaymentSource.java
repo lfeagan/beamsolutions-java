@@ -11,9 +11,9 @@ public class PaymentSource {
 
     private static String URI_FRAGMENT = "/model/v1/payment-sources";
 
-    public String paymentSourceId = null; // length <= 128
-    public Date paymentSourceCreated = null; // ISO-8601 Date-Time Format
-    public String partyId = null; // length <= 128
+    public String paymentSourceId = null; // REQUIRED; length <= 128
+    public Date paymentSourceCreated = null; // REQUIRED; ISO-8601 Date-Time Format
+    public String partyId = null; // REQUIRED; length <= 128
     public String method = null; // length <= 128
     public Date paymentSourceModified = null; // ISO-8601 Date-Time Format
     public String methodType = null; // length <= 128
@@ -33,6 +33,15 @@ public class PaymentSource {
     public String accountId = null; // length <= 128
     public String status = null; // length <= 128
     public GeoCode geoCode = null;
+
+    // default no-args for use by serialization
+    PaymentSource() {}
+
+    public PaymentSource(final String paymentSourceId, final String partyId) {
+        this.paymentSourceId = paymentSourceId;
+        this.partyId = null;
+        this.paymentSourceCreated = new Date();
+    }
 
     public CreateResponse create(BeamTransport transport) throws IOException, InterruptedException {
         HttpResponse<String> response = transport.post(URI_FRAGMENT, this);
