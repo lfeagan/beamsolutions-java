@@ -13,4 +13,6 @@ public interface BeamTransport {
     HttpResponse<String> doGet(String uriFragment) throws IOException, InterruptedException;
 
     HttpResponse<String> doUpdate(String uriFragment, Object object, boolean suppressHistory) throws IOException, InterruptedException;
+
+    HttpResponse<String> doPut(String uriFragment, Object object) throws IOException, InterruptedException;
 }

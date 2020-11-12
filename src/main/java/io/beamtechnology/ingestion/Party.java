@@ -1,14 +1,17 @@
 package io.beamtechnology.ingestion;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.beamtechnology.transport.BeamTransport;
 import io.beamtechnology.util.JsonUtils;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.time.Instant;
+import java.util.Date;
 
 public class Party {
     public String partyId = null; // REQUIRED; length <= 128
-    public String partyCreated = null; // REQUIRED; ISO-8601 Format Date
+    public Date partyCreated = null; // REQUIRED; ISO-8601 Format Date
     public String userName = null; // length <=255
     public String partyModified = null; // ISO-8601 Format Date
     public String group = null; // length <=128
@@ -74,6 +77,15 @@ public class Party {
         HttpResponse<String> response = transport.doUpdate(uriFragment, this, suppressHistory);
         Party party = JsonUtils.fromJson(Party.class, response.body());
         return party;
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        Party p = new Party();
+        p.partyId = "123";
+        p.partyCreated = new Date();
+        System.out.println(JsonUtils.toJson(p));
+
+        // 2019-09-04T04:16:28.138Z
     }
 
 }
