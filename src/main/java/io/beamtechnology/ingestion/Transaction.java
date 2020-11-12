@@ -51,10 +51,10 @@ public class Transaction {
         return transaction;
     }
 
-    public void updateStatus(BeamTransport transport) {
+    public void updateStatus(BeamTransport transport) throws IOException, InterruptedException {
+        // put /model/v1/transactions/1111?status=pending
+        final String uriFragment = URI_FRAGMENT + "/" + transactionId + "?status=" + status;
+        HttpResponse<String> response = transport.doPut(uriFragment, null);
 
-
-        // put
-        /model/v1/transactions/1111?status=pending
     }
 }
